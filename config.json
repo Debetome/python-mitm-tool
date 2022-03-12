@@ -1,0 +1,6 @@
+{
+	"database": "raw_mitm.db",
+	"logfile": "raw_mitm.log",
+	"verbose_level": 1,
+	"save_logfile": true
+}
