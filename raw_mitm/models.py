@@ -11,7 +11,7 @@ class MitmArgs:
     interface: str = field(default_factory=str)
 
 @dataclass
-class MacDiscoverArgs:
+class MacRetrieverArgs:
     router_ip: str = field(default_factory=str)
     target_ip: str = field(default_factory=str)
     your_mac: str = field(default_factory=str)

